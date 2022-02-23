@@ -1,17 +1,19 @@
 <template>
   <section>
-    <ul>
-      <!-- 여기서의 index는 목록에서 순서, 배열 인덱스와 동일함
+    <transition-group name="list" tag="ul">
+      <!-- v-for="(todoItem, index)~ " : 여기서의 index는 목록에서 순서, 배열 인덱스와 동일함
           v-for 디렉티브로 반복한 요소는 모두 뷰에서 내부적으로 인덱스를 부여한다. -->
-<!--  <li v-for="(todoItem, index) in todoItems" :key="todoItem" class="shadow"> -->
-      <li v-for="(todoItem, index) in propsdata" class="shadow">
+      <!-- :key 속성 : v-for 디렉티브를 쓸 때 꼭 지정해주는 것이 좋다. -->
+      <!-- 직접 data()에 담지않고, App.vue 에서 propsdata로 가져오도록 바꾼다. -->
+<!-- <li v-for="(todoItem, index) in todoItems" :key="todoItem" class="shadow"> -->
+      <li v-for="(todoItem, index) in propsdata" :key="todoItem" class="shadow">
         <i class="checkBtn fas fa-check" aria-hidden="true"></i>
         {{ todoItem }}
         <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
           <i class="far fa-trash-alt" aria-hidden="true"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
   </section>
 </template>
 
@@ -75,5 +77,12 @@ export default {
   .removeBtn {
     margin-left: auto;
     color: #de4343;
+  }
+  .list-enter-active, .list-leave-active{
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
   }
 </style>

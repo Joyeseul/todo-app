@@ -4,15 +4,26 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="addBtn fa fa-plus" aria-hidden="true"></i>
     </span>
+
+    <modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">경고</h3>
+      <span slot="footer" @click="showModal = false">
+        할 일을 입력하세요
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal'
+
 export default {
   /* input 박스에 입력한 텍스트 값을 Vue 에서 인식할 수 있게 됨 */
   data() {
     return {
-      newTodoItem: ''
+      newTodoItem: '',
+      showModal: false            //모달동작을 위한 flag 값
     }
   },
   /* button 태그와 연결된 메소드를 설정.
@@ -29,6 +40,8 @@ export default {
         //localStorage.setItem(value, value);
         this.$emit('addTodo', value);                         //직접 Todoinput.vue 에서 처리하는게 아니라 App.vue로 넘김
         this.clearInput();
+      } else {
+        this.showModal = !this.showModal;                               //텍스트 미입력시 모달 동작
       }
     },
     clearInput() {
