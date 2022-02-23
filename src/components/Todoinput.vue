@@ -26,7 +26,8 @@ export default {
     addTodo() {
       if(this.newTodoItem !== "") {                                     //input 에 값이 있을 때만 저장함
         let value = this.newTodoItem && this.newTodoItem.trim();        //입력값의 앞뒤 공백문자열 제거
-        localStorage.setItem(value, value);
+        //localStorage.setItem(value, value);
+        this.$emit('addTodo', value);                         //직접 Todoinput.vue 에서 처리하는게 아니라 App.vue로 넘김
         this.clearInput();
       }
     },

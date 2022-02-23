@@ -8,7 +8,9 @@
 export default {
   methods: {
     clearTodo() {
-      localStorage.clear();
+      //localStorage.clear();
+      /* 직접처리하지않고 'removeAll' 이벤트 발생 -> App.vue에서 clearAll() 메서드 실행 */
+      this.$emit('removeAll');
     }
   }
 }
